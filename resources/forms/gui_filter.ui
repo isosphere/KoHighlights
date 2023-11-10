@@ -64,7 +64,7 @@
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/filter.png</normaloff>:/stuff/filter.png</iconset>
+          <normaloff>:/filter.png</normaloff>:/filter.png</iconset>
         </property>
        </widget>
       </item>
@@ -152,7 +152,7 @@
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/trash.png</normaloff>:/stuff/trash.png</iconset>
+          <normaloff>:/trash.png</normaloff>:/trash.png</iconset>
         </property>
        </widget>
       </item>

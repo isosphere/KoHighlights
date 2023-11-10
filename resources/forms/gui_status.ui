@@ -53,7 +53,7 @@ what will be saved to the text/html files.</string>
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/show_pages.png</normaloff>:/stuff/show_pages.png</iconset>
+          <normaloff>:/show_pages.png</normaloff>:/show_pages.png</iconset>
         </property>
         <property name="iconSize">
          <size>

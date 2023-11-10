@@ -57,7 +57,7 @@
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>../KataLib/:/stuff/exec.png</normaloff>../KataLib/:/stuff/exec.png</iconset>
+          <normaloff>../KataLib/:/exec.png</normaloff>../KataLib/:/exec.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -99,7 +99,7 @@ Can also be the eReader's root directory (Ctrl+L)</string>
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/folder_reader.png</normaloff>:/stuff/folder_reader.png</iconset>
+          <normaloff>:/folder_reader.png</normaloff>:/folder_reader.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -140,7 +140,7 @@ Can also be the eReader's root directory (Ctrl+L)</string>
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/file_save.png</normaloff>:/stuff/file_save.png</iconset>
+          <normaloff>:/file_save.png</normaloff>:/file_save.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -181,7 +181,7 @@ Can also be the eReader's root directory (Ctrl+L)</string>
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/files_view.png</normaloff>:/stuff/files_view.png</iconset>
+          <normaloff>:/files_view.png</normaloff>:/files_view.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -216,7 +216,7 @@ Can also be the eReader's root directory (Ctrl+L)</string>
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/filter.png</normaloff>:/stuff/filter.png</iconset>
+          <normaloff>:/filter.png</normaloff>:/filter.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -268,7 +268,7 @@ Activated only if two entries of the same book are selected.</string>
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/files_merge.png</normaloff>:/stuff/files_merge.png</iconset>
+          <normaloff>:/files_merge.png</normaloff>:/files_merge.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -312,7 +312,7 @@ Activated only if two entries of the same book are selected.</string>
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/files_delete.png</normaloff>:/stuff/files_delete.png</iconset>
+          <normaloff>:/files_delete.png</normaloff>:/files_delete.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -356,7 +356,7 @@ Activated only if two entries of the same book are selected.</string>
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/trash.png</normaloff>:/stuff/trash.png</iconset>
+          <normaloff>:/trash.png</normaloff>:/trash.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -410,7 +410,7 @@ Activated only if two entries of the same book are selected.</string>
            </property>
            <property name="icon">
             <iconset resource="images.qrc">
-             <normaloff>:/stuff/view_books.png</normaloff>:/stuff/view_books.png</iconset>
+             <normaloff>:/view_books.png</normaloff>:/view_books.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -454,7 +454,7 @@ Activated only if two entries of the same book are selected.</string>
            </property>
            <property name="icon">
             <iconset resource="images.qrc">
-             <normaloff>:/stuff/view-highlights.png</normaloff>:/stuff/view-highlights.png</iconset>
+             <normaloff>:/view-highlights.png</normaloff>:/view-highlights.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -519,7 +519,7 @@ Activated only if two entries of the same book are selected.</string>
            </property>
            <property name="icon">
             <iconset resource="images.qrc">
-             <normaloff>:/stuff/books.png</normaloff>:/stuff/books.png</iconset>
+             <normaloff>:/books.png</normaloff>:/books.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -570,7 +570,7 @@ Activated only if two entries of the same book are selected.</string>
            </property>
            <property name="icon">
             <iconset resource="images.qrc">
-             <normaloff>:/stuff/db.png</normaloff>:/stuff/db.png</iconset>
+             <normaloff>:/db.png</normaloff>:/db.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -623,7 +623,7 @@ Activated only if two entries of the same book are selected.</string>
         </property>
         <property name="icon">
          <iconset resource="images.qrc">
-          <normaloff>:/stuff/logo64.png</normaloff>:/stuff/logo64.png</iconset>
+          <normaloff>:/logo64.png</normaloff>:/logo64.png</iconset>
         </property>
         <property name="iconSize">
          <size>

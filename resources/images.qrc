@@ -1,0 +1,37 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file alias='files_view.png'>../resources/icons/files_view.png</file>
+        <file alias='exec.png'>../resources/icons/exec.png</file>
+        <file alias='refresh16.png'>../resources/icons/refresh16.png</file>
+        <file alias='copy.png'>../resources/icons/copy.png</file>
+        <file alias='file_exists.png'>../resources/icons/file_exists.png</file>
+        <file alias='delete.png'>../resources/icons/delete.png</file>
+        <file alias='logo64.png'>../resources/icons/logo64.png</file>
+        <file alias='filter.png'>../resources/icons/filter.png</file>
+        <file alias='paypal.png'>../resources/icons/paypal.png</file>
+        <file alias='wait.gif'>../resources/icons/wait.gif</file>
+        <file alias='file_missing.png'>../resources/icons/file_missing.png</file>
+        <file alias='trans32.png'>../resources/icons/trans32.png</file>
+        <file alias='file_edit.png'>../resources/icons/file_edit.png</file>
+        <file alias='folder_reader.png'>../resources/icons/folder_reader.png</file>
+        <file alias='sort.png'>../resources/icons/sort.png</file>
+        <file alias='db_open.png'>../resources/icons/db_open.png</file>
+        <file alias='db_add.png'>../resources/icons/db_add.png</file>
+        <file alias='books.png'>../resources/icons/books.png</file>
+        <file alias='calendar.png'>../resources/icons/calendar.png</file>
+        <file alias='view_books.png'>../resources/icons/view_books.png</file>
+        <file alias='view-highlights.png'>../resources/icons/view-highlights.png</file>
+        <file alias='label_green.png'>../resources/icons/label_green.png</file>
+        <file alias='paypal76.png'>../resources/icons/paypal76.png</file>
+        <file alias='logo.png'>../resources/icons/logo.png</file>
+        <file alias='file_save.png'>../resources/icons/file_save.png</file>
+        <file alias='description.png'>../resources/icons/description.png</file>
+        <file alias='folder_open.png'>../resources/icons/folder_open.png</file>
+        <file alias='files_merge.png'>../resources/icons/files_merge.png</file>
+        <file alias='db.png'>../resources/icons/db.png</file>
+        <file alias='trash.png'>../resources/icons/trash.png</file>
+        <file alias='show_pages.png'>../resources/icons/show_pages.png</file>
+        <file alias='files_delete.png'>../resources/icons/files_delete.png</file>
+    </qresource>
+</RCC>

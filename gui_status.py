@@ -59,7 +59,7 @@ class Ui_Status(object):
         self.show_items_btn.setObjectName(u"show_items_btn")
         self.show_items_btn.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         icon = QIcon()
-        icon.addFile(u":/stuff/show_pages.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/show_pages.png", QSize(), QIcon.Normal, QIcon.Off)
         self.show_items_btn.setIcon(icon)
         self.show_items_btn.setIconSize(QSize(24, 24))
         self.show_items_btn.setChecked(False)

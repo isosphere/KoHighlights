@@ -54,7 +54,7 @@ class Ui_Filter(object):
         sizePolicy1.setHeightForWidth(self.filter_btn.sizePolicy().hasHeightForWidth())
         self.filter_btn.setSizePolicy(sizePolicy1)
         icon = QIcon()
-        icon.addFile(u":/stuff/filter.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/filter.png", QSize(), QIcon.Normal, QIcon.Off)
         self.filter_btn.setIcon(icon)
 
         self.horizontalLayout_4.addWidget(self.filter_btn)
@@ -92,7 +92,7 @@ class Ui_Filter(object):
         sizePolicy1.setHeightForWidth(self.clear_filter_btn.sizePolicy().hasHeightForWidth())
         self.clear_filter_btn.setSizePolicy(sizePolicy1)
         icon1 = QIcon()
-        icon1.addFile(u":/stuff/trash.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/trash.png", QSize(), QIcon.Normal, QIcon.Off)
         self.clear_filter_btn.setIcon(icon1)
 
         self.horizontalLayout.addWidget(self.clear_filter_btn)

@@ -12,7 +12,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="images.qrc">
-    <normaloff>:/stuff/logo64.png</normaloff>:/stuff/logo64.png</iconset>
+    <normaloff>:/logo64.png</normaloff>:/logo64.png</iconset>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
@@ -284,7 +284,7 @@
                  </property>
                  <property name="icon">
                   <iconset resource="images.qrc">
-                   <normaloff>:/stuff/description.png</normaloff>:/stuff/description.png</iconset>
+                   <normaloff>:/description.png</normaloff>:/description.png</iconset>
                  </property>
                  <property name="toolButtonStyle">
                   <enum>Qt::ToolButtonTextBesideIcon</enum>
@@ -544,7 +544,7 @@
   <action name="act_view_book">
    <property name="icon">
     <iconset resource="images.qrc">
-     <normaloff>:/stuff/files_view.png</normaloff>:/stuff/files_view.png</iconset>
+     <normaloff>:/files_view.png</normaloff>:/files_view.png</iconset>
    </property>
    <property name="text">
     <string>View Book</string>

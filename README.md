@@ -1,5 +1,5 @@
 ## General
-![kohighlights128w](https://user-images.githubusercontent.com/24675403/234561476-97283ff8-5437-49cd-b4c5-3929886cf182.png)
+![kohighlights128w](resources/icons/logo.png)
 
 [![made-with-python][Python]](https://www.python.org/)
 [![Generic badge][OS]][ReleaseLink]
@@ -17,17 +17,17 @@ The original KOHighlights (using the wxPython) can be found
 
 
 ### Screenshots
-<!-- ![HighLights ScreenShot](screen1.png) -->
-<!-- ![HighLights ScreenShot](screen2.png) -->
-<!-- ![HighLights ScreenShot](screen3.png) -->
+<!-- ![HighLights ScreenShot](resources/screenshots/screen1.png) -->
+<!-- ![HighLights ScreenShot](resources/screenshots/screen2.png) -->
+<!-- ![HighLights ScreenShot](resources/screenshots/screen3.png) -->
 
 <p align="center">
-  <a href="https://raw.githubusercontent.com/noembryo/KoHighlights/master/screen1.png">
-    <img src="https://raw.githubusercontent.com/noembryo/KoHighlights/master/screen1.png" height="180"></a>
-  <a href="https://raw.githubusercontent.com/noembryo/KoHighlights/master/screen2.png">
-    <img src="https://raw.githubusercontent.com/noembryo/KoHighlights/master/screen2.png" height="180"></a>
-  <a href="https://raw.githubusercontent.com/noembryo/KoHighlights/master/screen3.png">
-    <img src="https://raw.githubusercontent.com/noembryo/KoHighlights/master/screen3.png" height="180"></a>
+  <a href="resources/screenshots/screen1.png">
+    <img src="resources/screenshots/screen1.png" height="180"></a>
+  <a href="resources/screenshots/screen2.png">
+    <img src="resources/screenshots/screen2.png" height="180"></a>
+  <a href="resources/screenshots/screen3.png">
+    <img src="resources/screenshots/screen3.png" height="180"></a>
 </p>
 
 ## Usage

@@ -1,26 +1,11 @@
 ## General
-![kohighlights128w](resources/icons/logo.png)
+![KOHighlights logo](resources/icons/logo.png)
 
-[![made-with-python][Python]](https://www.python.org/)
-[![Generic badge][OS]][ReleaseLink]
-[![License: MIT][MIT]](LICENSE)
-[![GitHub release][Release]][ReleaseLink]
-<!-- [![Github all releases][TotalDown]][ReleaseLink] -->
-<!-- [![Github Releases (by Release)][VersionDown]][ReleaseLink] -->
-
-
-**KOHighlights** is a utility for viewing and exporting the
-[Koreader](https://github.com/koreader/koreader)'s highlights to simple text, html, csv or markdown files.  
-This is a totally re-written application using the Qt framework (PySide).  
-The original KOHighlights (using the wxPython) can be found
-[here](https://github.com/noonkey/KoHighlights), but is considered deprecated..
+**KOHighlights** is a utility for viewing and exporting [Koreader](https://github.com/koreader/koreader)'s highlights to text, html, csv, or markdown files. 
+This repository is a fork of the original project at [KOHighlights](https://github.com/noembryo/KoHighlights); the purpose of this fork is to promote better inter-operability with personal knowledge management software, such as [Logseq](https://logseq.com/) and [Obsidian](https://obsidian.md/). 
 
 
 ### Screenshots
-<!-- ![HighLights ScreenShot](resources/screenshots/screen1.png) -->
-<!-- ![HighLights ScreenShot](resources/screenshots/screen2.png) -->
-<!-- ![HighLights ScreenShot](resources/screenshots/screen3.png) -->
-
 <p align="center">
   <a href="resources/screenshots/screen1.png">
     <img src="resources/screenshots/screen1.png" height="180"></a>
@@ -64,33 +49,11 @@ There are two ways to start the app in Portable mode:
 * Run `KoHighlights.exe` with a `-p` argument.  
 E.g. create a shortcut for the `KoHighlights.exe` and add a space and a `-p` argument at the end of the target filename.
 
-## Downloads
-Check the latest release on the [Downloads Page][ReleaseLink].  
-Read the version history at [App's Page](http://www.noembryo.com/apps.php?kohighlights).
-
 ## Dependencies
-Should run in any system with Python 2.7.x or 3.x (more testing required)  
-It needs the [PySide](https://pypi.org/project/PySide/),
-[BeautifulSoup4](https://pypi.org/project/beautifulsoup4/),
-[future](https://pypi.org/project/future/) and
-[requests](https://pypi.org/project/requests/) libraries.  
-In Linux the `libqt4-sql-sqlite` package must be installed.  
+This project uses [poetry](https://python-poetry.org/) for dependency management. See the [pyproject.toml](pyproject.toml) for detailed dependency information.
 
 ## Extra
-KOHighlights includes SLPPU (a converter between python and lua objects).  
+KOHighlights includes SLPPU (a converter between python and lua objects). 
 If you want it to be globally available, get it from its
 [GitHub's page](https://github.com/noembryo/slppu) or install it with:  
 `pip install git+https://github.com/noembryo/slppu`  
-
-
-<!-- ##### Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/noembryo/KoHighlights.svg)](https://starchart.cc/noembryo/KoHighlights) -->
-
-[Release]:https://img.shields.io/github/release/noembryo/KoHighlights.svg
-[ReleaseLink]:https://GitHub.com/noembryo/KoHighlights/releases/
-[TotalDown]:https://img.shields.io/github/downloads/noembryo/KoHighlights/total.svg
-[VersionDown]:https://img.shields.io/github/downloads/noembryo/KoHighlights/v1.2.2.0/total.svg
-[Python]:https://img.shields.io/badge/Made%20with-Python-1f425f.svg
-[OS]:https://img.shields.io/badge/OS-Windows&nbsp;/&nbsp;Linux-darkgreen.svg
-[MIT]:https://img.shields.io/badge/License-MIT-green.svg

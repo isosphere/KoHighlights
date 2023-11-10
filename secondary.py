@@ -8,18 +8,11 @@ from distutils.version import LooseVersion
 from os.path import join, basename, splitext, isfile
 from pprint import pprint
 
-if QT4:  # ___ ______________ DEPENDENCIES __________________________
-    from PySide.QtCore import Qt, Slot, QObject, Signal, QSize, QPoint, QEvent
-    from PySide.QtGui import (QApplication, QMessageBox, QIcon, QFileDialog, QLineEdit,
-                              QDialog, QWidget, QMovie, QFont, QMenu, QAction, QCursor,
-                              QTableWidget, QCheckBox, QToolButton, QActionGroup,
-                              QTableWidgetItem)
-else:
-    from PySide2.QtCore import QObject, Qt, Signal, QPoint, Slot, QSize, QEvent
-    from PySide2.QtGui import QFont, QMovie, QIcon, QCursor
-    from PySide2.QtWidgets import (QTableWidgetItem, QTableWidget, QMessageBox, QLineEdit,
-                                   QApplication, QWidget, QDialog, QFileDialog,
-                                   QActionGroup, QMenu, QAction, QToolButton, QCheckBox)
+from PySide6.QtCore import QObject, Qt, Signal, QPoint, Slot, QSize, QEvent
+from PySide6.QtGui import QFont, QMovie, QIcon, QCursor, QAction, QActionGroup
+from PySide6.QtWidgets import (QTableWidgetItem, QTableWidget, QMessageBox, QLineEdit,
+                                QApplication, QWidget, QDialog, QFileDialog,
+                                QMenu, QToolButton, QCheckBox)
 import requests
 from bs4 import BeautifulSoup
 from slppu import slppu as lua  # https://github.com/noembryo/slppu
@@ -90,9 +83,11 @@ def get_book_text(title, authors, highlights, format_, line_break, space, text):
         text += BOOK_BLOCK % {"title": title, "authors": authors}
         for high in highlights:
             date_text, high_comment, high_text, page_text, chapter = high
-            text += HIGH_BLOCK % {"page": page_text, "date": date_text,
-                                  "highlight": high_text, "comment": high_comment,
-                                  "chapter": chapter}
+            text += HIGH_BLOCK % {
+                "page": page_text, "date": date_text,
+                "highlight": high_text, "comment": high_comment,
+                "chapter": chapter
+            }
         text += "</div>\n"
     elif format_ == ONE_TEXT:
         name = title
@@ -100,9 +95,11 @@ def get_book_text(title, authors, highlights, format_, line_break, space, text):
             name = "{} - {}".format(authors, title)
         line = "-" * 80
         text += line + nl + name + nl + line + nl
-        highlights = [i[3] + space + i[0] + line_break +
-                      ("[{}]{}".format(i[4], nl) if i[4] else "") +
-                      i[2] + i[1] for i in highlights]
+        highlights = [
+            i[3] + space + i[0] + line_break +
+            ("[{}]{}".format(i[4], nl) if i[4] else "") +
+            i[2] + i[1] for i in highlights
+        ]
         text += (nl * 2).join(highlights) + nl * 2
     elif format_ == ONE_CSV:
         for high in highlights:
@@ -123,8 +120,7 @@ def get_book_text(title, authors, highlights, format_, line_break, space, text):
             if chapter:
                 chapter = "***{0}***{1}{1}".format(chapter, nl).replace(nl, "  " + nl)
             high = i[2].replace(nl, "  " + nl)
-            h = ("*" + i[3] + space + i[0] + line_break + chapter +
-                 high + comment + "  \n&nbsp;  \n")
+            h = ("*" + i[3] + space + i[0] + line_break + chapter + high + comment + "  \n&nbsp;  \n")
             h = h.replace("-", "\\-")
             highs.append(h)
         text += nl.join(highs) + "\n---\n"
@@ -514,7 +510,7 @@ class ToolBar(QWidget, Ui_ToolBar):
         :type point: QPoint
         :param point: The point where the right-click happened
         """
-        self.size_menu.exec_(self.tool_frame.mapToGlobal(point))
+        self.size_menu.exec(self.tool_frame.mapToGlobal(point))
 
     def create_size_menu(self):
         """ Create the toolbar's buttons size menu
@@ -639,7 +635,7 @@ class ToolBar(QWidget, Ui_ToolBar):
         """ The context menu of the "Archived" button is pressed
         """
         # noinspection PyArgumentList
-        self.db_menu.exec_(QCursor.pos())
+        self.db_menu.exec(QCursor.pos())
 
     def create_db_menu(self):
         """ Create the database menu
@@ -799,9 +795,6 @@ class Filter(QDialog, Ui_Filter):
     def __init__(self, parent=None):
         super(Filter, self).__init__(parent)
         self.setupUi(self)
-        if QT4:  # Remove the question mark widget from dialog
-            # noinspection PyUnresolvedReferences
-            self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
         self.setWindowTitle(_("Filter").format(APP_NAME))
         self.base = parent
 
@@ -952,9 +945,6 @@ class About(QDialog, Ui_About):
     def __init__(self, parent=None):
         super(About, self).__init__(parent)
         self.setupUi(self)
-        if QT4:  # Remove the question mark widget from dialog
-            # noinspection PyUnresolvedReferences
-            self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
         self.setWindowTitle(_("About {}").format(APP_NAME))
         self.base = parent
 
@@ -1073,9 +1063,6 @@ class TextDialog(QDialog, Ui_TextDialog):
 
     def __init__(self, parent=None):
         super(TextDialog, self).__init__(parent)
-        if QT4:  # Remove the question mark widget from dialog
-            # noinspection PyUnresolvedReferences
-            self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
         self.setupUi(self)
 
         self.base = parent

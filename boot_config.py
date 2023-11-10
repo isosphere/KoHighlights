@@ -1,11 +1,13 @@
 # coding=utf-8
 from __future__ import (absolute_import, division, print_function, unicode_literals)
 
+import gzip
+import json
+import os
+import sys
 import time
-import sys, os
 import traceback
-import gzip, json
-from os.path import dirname, join, isdir, expanduser, exists
+from os.path import dirname, join, isdir, expanduser
 
 APP_NAME = "KOHighlights"
 APP_DIR = dirname(os.path.abspath(sys.argv[0]))
@@ -85,11 +87,8 @@ def except_hook(class_type, value, trace_back):
 
 sys.excepthook = except_hook
 
-QT4 = True
-try:
-    import PySide
-except ImportError:
-    QT4 = False
+
+import PySide6
 FIRST_RUN = False
 # noinspection PyBroadException
 try:

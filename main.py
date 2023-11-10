@@ -29,7 +29,7 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtGui import QIcon, QPixmap, QTextCursor, QBrush, QColor, QAction
 
 from secondary import *
-from gui_main import Ui_Base
+from gui.main import Ui_Base
 
 
 if PYTHON2:  # ___ __________ PYTHON 2/3 COMPATIBILITY ______________

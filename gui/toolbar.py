@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QGroupBox, QHBoxLayout,
     QWidget)
 
 from secondary import XToolButton
-import images_rc
+import gui.images_rc
 
 class Ui_ToolBar(object):
     def setupUi(self, ToolBar):

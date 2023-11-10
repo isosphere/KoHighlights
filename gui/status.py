@@ -18,7 +18,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QSizePolicy, QToolButton, QWidget)
-import images_rc
+import gui.images_rc
 
 class Ui_Status(object):
     def setupUi(self, Status):

@@ -17,7 +17,6 @@ import requests
 from bs4 import BeautifulSoup
 from slppu import slppu as lua  # https://github.com/noembryo/slppu
 
-
 def _(text):  # for future gettext support
     return text
 
@@ -473,14 +472,12 @@ class HighlightScanner(QObject):
 
 # ___ _______________________ GUI STUFF _____________________________
 
-
-from gui_about import Ui_About
-from gui_auto_info import Ui_AutoInfo
-from gui_toolbar import Ui_ToolBar
-from gui_status import Ui_Status
-from gui_edit import Ui_TextDialog
-from gui_filter import Ui_Filter
-
+from gui.about import Ui_About
+from gui.auto_info import Ui_AutoInfo
+from gui.toolbar import Ui_ToolBar
+from gui.status import Ui_Status
+from gui.edit import Ui_TextDialog
+from gui.filter import Ui_Filter
 
 class ToolBar(QWidget, Ui_ToolBar):
 

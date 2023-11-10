@@ -24,7 +24,7 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLay
     QWidget)
 
 from secondary import DropTableWidget
-import images_rc
+import gui.images_rc
 
 class Ui_Base(object):
     def setupUi(self, Base):

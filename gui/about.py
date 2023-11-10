@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QHBoxLayout,
     QLabel, QPlainTextEdit, QPushButton, QScrollArea,
     QSizePolicy, QSpacerItem, QTabWidget, QVBoxLayout,
     QWidget)
-import images_rc
+import gui.images_rc
 
 class Ui_About(object):
     def setupUi(self, About):

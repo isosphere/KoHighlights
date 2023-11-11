@@ -15,32 +15,7 @@ os.chdir(APP_DIR)  # Set the current working directory to the app's directory
 
 PORTABLE = False
 
-unicode, basestring = str, str
-c_open = open
-
 if sys.platform == "win32":  # Windows
-    import win32api
-    import win32event
-    from winerror import ERROR_ALREADY_EXISTS
-
-    class SingleInstance:
-        """ Limits application to single instance
-        """
-        def __init__(self, name):
-            self.mutex = win32event.CreateMutex(None, False, name)
-            self.lasterror = win32api.GetLastError()
-
-        def already_running(self):
-            return self.lasterror == ERROR_ALREADY_EXISTS
-
-        def __del__(self):
-            import win32api  # needed otherwise raises Exception AttributeError
-            win32api.CloseHandle(self.mutex) if self.mutex else None
-
-    my_app = SingleInstance(APP_NAME)
-
-    if my_app.already_running():  # another instance is running
-        sys.exit(0)
     try:
         portable_arg = sys.argv[1]
         PORTABLE = portable_arg == "-p"
@@ -50,24 +25,9 @@ if sys.platform == "win32":  # Windows
     PROFILE_DIR = join(os.environ[str("APPDATA")], APP_NAME)
     PORTABLE_DIR = join(APP_DIR, "portable_settings")
     SETTINGS_DIR = PORTABLE_DIR if PORTABLE else PROFILE_DIR
-
 elif sys.platform == "darwin":  # MacOS 2check: needs to be tested
-    import socket
-    app_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        app_socket.bind(("127.0.0.1", 42001))  # use a specific port
-        # app_socket.listen(1)
-    except socket.error:  # port in use - another instance is running
-        sys.exit(0)
     SETTINGS_DIR = join(expanduser("~"), "Library", "Application Support", APP_NAME)
 else:  # Linux+
-    try:
-        import socket
-        app_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        # Create an abstract socket, by prefixing it with null.
-        app_socket.bind(str("\0{}_lock_port".format(APP_NAME)))
-    except socket.error:  # port in use - another instance is running
-        sys.exit(0)
     SETTINGS_DIR = join(expanduser("~"), ".config", APP_NAME)
 
 if not isdir(SETTINGS_DIR):
@@ -79,7 +39,7 @@ def except_hook(class_type, value, trace_back):
     name = join(SETTINGS_DIR, "error_log_{}.txt".format(time.strftime(str("%Y-%m-%d"))))
     with open(name, "a", encoding="utf8") as log:
         log.write("\nCrash@{}\n".format(time.strftime(str("%Y-%m-%d %H:%M:%S"))))
-    traceback.print_exception(class_type, value, trace_back, file=c_open(name, str("a")))
+    traceback.print_exception(class_type, value, trace_back, file=open(name, "a", encoding="utf8"))
     sys.__excepthook__(class_type, value, trace_back)
 
 

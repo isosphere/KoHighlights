@@ -378,7 +378,7 @@ class LogStream(QObject):
 
 
 class Scanner(QObject):
-    found = Signal(unicode)
+    found = Signal(str)
     finished = Signal()
 
     def __init__(self, path):
@@ -409,7 +409,7 @@ class Scanner(QObject):
 
 
 class ReLoader(QObject):
-    found = Signal(unicode)
+    found = Signal(str)
     finished = Signal()
 
     def __init__(self, paths):
@@ -423,7 +423,7 @@ class ReLoader(QObject):
 
 
 class DBLoader(QObject):
-    found = Signal(unicode, dict, unicode)
+    found = Signal(str, dict, str)
     finished = Signal()
 
     def __init__(self, books):

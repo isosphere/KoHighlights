@@ -2486,7 +2486,7 @@ class Base(QMainWindow, Ui_Base):
         popup.setWindowIcon(self.ico_app)
         if type(icon) == QMessageBox.Icon:
             popup.setIcon(icon)
-        elif type(icon) == unicode:
+        elif type(icon) == str:
             popup.setIconPixmap(QPixmap(icon))
         elif type(icon) == QPixmap:
             popup.setIconPixmap(icon)

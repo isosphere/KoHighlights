@@ -4,8 +4,6 @@ import sys
 
 from future.utils import iteritems
 
-basestring, unicode, long = str, str, int
-
 # https://github.com/noembryo/slppu
 
 ERRORS = {
@@ -34,7 +32,7 @@ class SLPPU(object):
         self.tab = '    '  # or '\t'
 
     def decode(self, text):
-        if not text or not isinstance(text, basestring):
+        if not text or not isinstance(text, str):
             return
         # FIXME: only short comments removed
         reg = re.compile(r'--.*$', re.MULTILINE)
@@ -55,9 +53,9 @@ class SLPPU(object):
         tab = self.tab
         newline = self.newline
         tp = type(obj)
-        if tp in [str, unicode]:
+        if tp in [str, str]:
             s += '"%s"' % obj.replace(r'"', r'\"')
-        elif tp in [int, float, long, complex]:
+        elif tp in [int, float, int, complex]:
             s += str(obj)
         elif tp is bool:
             s += str(obj).lower()
@@ -65,14 +63,14 @@ class SLPPU(object):
             s += 'nil'
         elif tp in [list, tuple, dict]:
             self.depth += 1
-            if len(obj) == 0 or (tp is not dict and len(filter(lambda x: type(x) in (int, float, long) or (isinstance(x, basestring) and len(x) < 10), obj)) == len(obj)):
+            if len(obj) == 0 or (tp is not dict and len(filter(lambda x: type(x) in (int, float, int) or (isinstance(x, str) and len(x) < 10), obj)) == len(obj)):
                 newline = tab = ''
             dp = tab * self.depth
             s += "%s{%s" % (tab * (self.depth - 2), newline)
             if tp is dict:
                 contents = []
                 for k, v in iteritems(obj):
-                    k = (f'[{k}]' if type(k) in [int, float, long, complex] else f'["{k}"]')
+                    k = (f'[{k}]' if type(k) in [int, float, int, complex] else f'["{k}"]')
                     contents.append(dp + f'{k} = {self.__encode(v)}')
                 s += (f',{newline}').join(contents)
                 
@@ -153,7 +151,7 @@ class SLPPU(object):
                     self.next_chr()
                     if k is not None:
                         o[idx] = k
-                    if not numeric_keys and len([key for key in o if isinstance(key, (str, unicode, float, bool, tuple))]) == 0:
+                    if not numeric_keys and len([key for key in o if isinstance(key, (str, str, float, bool, tuple))]) == 0:
                         ar = []
                         for key, value in o.items():
                             ar.insert(key, value)

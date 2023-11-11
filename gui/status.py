@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'gui_status.ui'
+## Form generated from reading UI file 'status.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -18,7 +18,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QSizePolicy, QToolButton, QWidget)
-import gui.images_rc
+from gui import images_rc
 
 class Ui_Status(object):
     def setupUi(self, Status):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'gui_main.ui'
+## Form generated from reading UI file 'main.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -24,7 +24,7 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLay
     QWidget)
 
 from secondary import DropTableWidget
-import gui.images_rc
+from gui import images_rc
 
 class Ui_Base(object):
     def setupUi(self, Base):

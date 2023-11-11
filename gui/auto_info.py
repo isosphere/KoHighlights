@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'gui_auto_info.ui'
+## Form generated from reading UI file 'auto_info.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QLabel,
     QSizePolicy, QVBoxLayout, QWidget)
-import gui.images_rc
+from gui import images_rc
 
 class Ui_AutoInfo(object):
     def setupUi(self, AutoInfo):

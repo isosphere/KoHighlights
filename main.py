@@ -31,10 +31,6 @@ from PySide6.QtGui import QIcon, QPixmap, QTextCursor, QBrush, QColor, QAction
 from secondary import *
 from gui.main import Ui_Base
 
-
-
-
-
 __author__ = "noEmbryo"
 __version__ = "1.7.3.0"
 

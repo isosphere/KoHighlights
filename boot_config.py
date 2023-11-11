@@ -70,7 +70,7 @@ else:  # Linux+
         sys.exit(0)
     SETTINGS_DIR = join(expanduser("~"), ".config", APP_NAME)
 
-if not isdir(SETTINGS_DIR)
+if not isdir(SETTINGS_DIR):
     os.makedirs(SETTINGS_DIR)
 
 def except_hook(class_type, value, trace_back):

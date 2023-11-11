@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'gui_edit.ui'
+## Form generated from reading UI file 'edit.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QHBoxLayout,
     QPushButton, QSizePolicy, QSpacerItem, QTextEdit,
     QVBoxLayout, QWidget)
-import gui.images_rc
+from gui import images_rc
 
 class Ui_TextDialog(object):
     def setupUi(self, TextDialog):

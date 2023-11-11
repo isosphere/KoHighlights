@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'gui_toolbar.ui'
+## Form generated from reading UI file 'toolbar.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QGroupBox, QHBoxLayout,
     QWidget)
 
 from secondary import XToolButton
-import gui.images_rc
+from gui import images_rc
 
 class Ui_ToolBar(object):
     def setupUi(self, ToolBar):

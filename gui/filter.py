@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'gui_filter.ui'
+## Form generated from reading UI file 'filter.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
     QHBoxLayout, QLabel, QLineEdit, QPushButton,
     QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
-import gui.images_rc
+from gui import images_rc
 
 class Ui_Filter(object):
     def setupUi(self, Filter):

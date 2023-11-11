@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'gui_about.ui'
+## Form generated from reading UI file 'about.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QHBoxLayout,
     QLabel, QPlainTextEdit, QPushButton, QScrollArea,
     QSizePolicy, QSpacerItem, QTabWidget, QVBoxLayout,
     QWidget)
-import gui.images_rc
+from gui import images_rc
 
 class Ui_About(object):
     def setupUi(self, About):

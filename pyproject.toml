@@ -10,8 +10,8 @@ readme = "README.md"
 python = "<3.13,>=3.8"
 beautifulsoup4 = "^4.12.2"
 requests = "^2.31.0"
-pypiwin32 = "^223"
-pywin32 = "^306"
+pypiwin32 = { version="^223", platform="win32" }
+pywin32 = { version="^306", platform="win32" }
 future = "^0.18.3"
 pyside6 = "^6.6.0"
 

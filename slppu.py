@@ -1,21 +1,20 @@
 from __future__ import print_function
 import re
 import sys
-try:  # ___ _______ PYTHON 2/3 COMPATIBILITY ________________________
-    # noinspection PyCompatibility
-    basestring
-except NameError:  # python 3.x
-    # noinspection PyShadowingBuiltins
-    basestring, unicode, long = str, str, int
+
 from future.utils import iteritems
+
+basestring, unicode, long = str, str, int
 
 # https://github.com/noembryo/slppu
 
-ERRORS = {'unexp_end_string': u'Unexpected end of string while parsing Lua string.',
-          'unexp_end_table': u'Unexpected end of table while parsing Lua string.',
-          'mfnumber_minus': u'Malformed number (no digits after initial minus).',
-          'mfnumber_dec_point': u'Malformed number (no digits after decimal point).',
-          'mfnumber_sci': u'Malformed number (bad scientific format).'}
+ERRORS = {
+    'unexp_end_string':     'Unexpected end of string while parsing Lua string.',
+    'unexp_end_table':      'Unexpected end of table while parsing Lua string.',
+    'mfnumber_minus':       'Malformed number (no digits after initial minus).',
+    'mfnumber_dec_point':   'Malformed number (no digits after decimal point).',
+    'mfnumber_sci':         'Malformed number (bad scientific format).'
+}
 
 
 class ParseError(Exception):
@@ -23,15 +22,14 @@ class ParseError(Exception):
 
 
 class SLPPU(object):
-
     def __init__(self):
         self.text = ''
         self.ch = ''
         self.at = 0
         self.len = 0
         self.depth = 0
-        self.space = re.compile('\s', re.M)
-        self.alnum = re.compile('\w', re.M)
+        self.space = re.compile(r'\s', re.MULTILINE)
+        self.alnum = re.compile(r'\w', re.MULTILINE)
         self.newline = '\n'
         self.tab = '    '  # or '\t'
 
@@ -39,7 +37,7 @@ class SLPPU(object):
         if not text or not isinstance(text, basestring):
             return
         # FIXME: only short comments removed
-        reg = re.compile('--.*$', re.M)
+        reg = re.compile(r'--.*$', re.MULTILINE)
         text = reg.sub('', text, 0)
         self.text = text
         self.at, self.ch, self.depth = 0, '', 0
@@ -67,24 +65,19 @@ class SLPPU(object):
             s += 'nil'
         elif tp in [list, tuple, dict]:
             self.depth += 1
-            if len(obj) == 0 or (tp is not dict and
-                                 len(filter(lambda x: type(x) in (int, float, long) or
-                                            (isinstance(x, basestring) and
-                                             len(x) < 10), obj)) == len(obj)):
+            if len(obj) == 0 or (tp is not dict and len(filter(lambda x: type(x) in (int, float, long) or (isinstance(x, basestring) and len(x) < 10), obj)) == len(obj)):
                 newline = tab = ''
             dp = tab * self.depth
             s += "%s{%s" % (tab * (self.depth - 2), newline)
             if tp is dict:
                 contents = []
                 for k, v in iteritems(obj):
-                    k = ('[{}]'.format(k) if type(k) in [int, float, long, complex]
-                         else '["{}"]'.format(k))
-                    contents.append(dp + '%s = %s' % (k, (self.__encode(v))))
-                s += (',%s' % newline).join(contents)
+                    k = (f'[{k}]' if type(k) in [int, float, long, complex] else f'["{k}"]')
+                    contents.append(dp + f'{k} = {self.__encode(v)}')
+                s += (f',{newline}').join(contents)
                 
             else:
-                s += (',%s' % newline).join(
-                    [dp + self.__encode(el) for el in obj])
+                s += (f',{newline}').join([dp + self.__encode(el) for el in obj])
             self.depth -= 1
             s += "%s%s}" % (newline, tab * self.depth)
         return s
@@ -160,12 +153,10 @@ class SLPPU(object):
                     self.next_chr()
                     if k is not None:
                         o[idx] = k
-                    if not numeric_keys and len([key for key in o
-                                                 if isinstance(key, (str, unicode, float,
-                                                                     bool, tuple))]) == 0:
+                    if not numeric_keys and len([key for key in o if isinstance(key, (str, unicode, float, bool, tuple))]) == 0:
                         ar = []
-                        for key in o:
-                            ar.insert(key, o[key])
+                        for key, value in o.items():
+                            ar.insert(key, value)
                         o = ar
                     return o  # or here
                 else:
@@ -230,10 +221,10 @@ class SLPPU(object):
                     n += next_digit(ERRORS['mfnumber_sci'])
                     n += self.digit()
         except ParseError:
-            t, e = sys.exc_info()[:2]
+            _t, e = sys.exc_info()[:2]
             print(e)
             return 0
-        # noinspection PyBroadException
+        
         try:
             return int(n, 0)
         except Exception:

@@ -1,8 +1,8 @@
 # coding=utf-8
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-
 from boot_config import *
+
 import os, sys, re
 import gzip
 import json
@@ -18,7 +18,7 @@ from distutils.version import LooseVersion
 from os.path import (isdir, isfile, join, basename, splitext, dirname, split, getmtime,
                      abspath, splitdrive)
 from pprint import pprint
-
+import pickle
 
 
 from PySide6.QtWidgets import (QMainWindow, QHeaderView, QApplication, QMessageBox,
@@ -32,10 +32,7 @@ from secondary import *
 from gui.main import Ui_Base
 
 
-if PYTHON2:  # ___ __________ PYTHON 2/3 COMPATIBILITY ______________
-    import cPickle as pickle
-else:
-    import pickle
+
 
 
 __author__ = "noEmbryo"
@@ -151,7 +148,6 @@ class Base(QMainWindow, Ui_Base):
         self.ico_refresh = QIcon(":/stuff/refresh16.png")
         self.ico_folder_open = QIcon(":/stuff/folder_open.png")
 
-        # noinspection PyArgumentList
         self.clip = QApplication.clipboard()
 
         self.about = About(self)
@@ -179,15 +175,13 @@ class Base(QMainWindow, Ui_Base):
 
         self.review_lbl.setVisible(False)
         self.review_txt.setVisible(False)
-
-        # noinspection PyTypeChecker,PyCallByClass
+        
         QTimer.singleShot(10000, self.auto_check4update)  # check for updates
 
         main_timer = QTimer(self)  # cleanup threads for ever
         main_timer.timeout.connect(self.thread_cleanup)
         main_timer.start(2000)
 
-        # noinspection PyTypeChecker,PyCallByClass
         QTimer.singleShot(0, self.on_load)
 
     def on_load(self):
@@ -321,7 +315,7 @@ class Base(QMainWindow, Ui_Base):
     def init_db(self):
         """ Initialize the database tables
         """
-        # noinspection PyTypeChecker,PyCallByClass
+        
         self.db = QSqlDatabase.addDatabase("QSQLITE")
         self.db.setDatabaseName(self.db_path)
         if not self.db.open():
@@ -333,7 +327,8 @@ class Base(QMainWindow, Ui_Base):
             # self.query.exec_("""PRAGMA user_version""")  # 2do: enable if db changes
             # while self.query.next():
             #     self.check_db_version(self.query.value(0))  # check the db version
-        self.set_db_version() if not isfile(self.db_path) else None
+        if not isfile(self.db_path):
+            self.set_db_version()
         self.create_books_table()
 
     def check_db_version(self, version):
@@ -349,7 +344,7 @@ class Base(QMainWindow, Ui_Base):
     def set_db_version(self):
         """ Set the current database version
         """
-        self.query.exec("""PRAGMA user_version = {}""".format(DB_VERSION))
+        self.query.exec(f"PRAGMA user_version = {DB_VERSION}")
 
     def change_db(self, mode):
         """ Changes the current db file
@@ -358,12 +353,12 @@ class Base(QMainWindow, Ui_Base):
         :param mode: Change, create new or reload the current db
         """
         if mode == NEW_DB:
-            # noinspection PyCallByClass
+            
             filename = QFileDialog.getSaveFileName(self, _("Type the name of the new db"),
                                                    self.db_path,
                                                    (_("database files (*.db)")))[0]
         elif mode == CHANGE_DB:
-            # noinspection PyCallByClass
+            
             filename = QFileDialog.getOpenFileName(self, _("Select a database file"),
                                                    self.db_path,
                                                    (_("database files (*.db)")))[0]
@@ -381,7 +376,7 @@ class Base(QMainWindow, Ui_Base):
             self.init_db()
             self.read_books_from_db()
             if self.toolbar.db_btn.isChecked():
-                # noinspection PyTypeChecker,PyCallByClass
+                
                 QTimer.singleShot(0, self.toolbar.update_archived)
 
     def delete_data(self):
@@ -684,7 +679,7 @@ class Base(QMainWindow, Ui_Base):
             data = self.high_table.item(row, HIGHLIGHT_H).data(Qt.UserRole)
             self.open_file(data["path"])
 
-    # noinspection PyUnusedLocal
+    
     def file_selection_update(self, selected, deselected):
         """ When a row in FileTable gets selected
 
@@ -882,7 +877,7 @@ class Base(QMainWindow, Ui_Base):
             stats = self.get_item_db_stats(data)
         icon, title, authors, percent, rating, status, high_count = stats
 
-        # noinspection PyArgumentList
+        
         color = ("#660000" if status == "abandoned" else
                  # "#005500" if status == "complete" else
                  QApplication.palette().text().color())
@@ -1203,7 +1198,7 @@ class Base(QMainWindow, Ui_Base):
 
         self.high_table.setSortingEnabled(True)
 
-    # noinspection PyUnusedLocal
+    
     def high_view_selection_update(self, selected, deselected):
         """ When a row in high_table gets selected
 
@@ -1234,7 +1229,7 @@ class Base(QMainWindow, Ui_Base):
             self.col_sort_asc_h = True
         self.col_sort_h = column
 
-    # noinspection PyUnusedLocal
+    
     def on_highlight_column_resized(self, column, oldSize, newSize):
         """ Gets the column size
 
@@ -1578,7 +1573,7 @@ class Base(QMainWindow, Ui_Base):
             self.on_file_table_itemClicked(self.file_table.item(self.sel_idx.row(), 0),
                                            reset=False)
 
-    # noinspection PyUnusedLocal
+    
     def high_list_selection_update(self, selected, deselected):
         """ When a highlight in gets selected
 
@@ -1926,7 +1921,7 @@ class Base(QMainWindow, Ui_Base):
     def use_meta_files(self):
         """ Selects a metadata files to sync/merge
         """
-        # noinspection PyCallByClass
+        
         filenames = QFileDialog.getOpenFileNames(self, _("Select metadata file"),
                                                  self.last_dir,
                                                  (_("metadata files (*.lua *.old)")))[0]
@@ -2073,7 +2068,7 @@ class Base(QMainWindow, Ui_Base):
             menu.addAction(action)
         return menu
 
-    # noinspection PyCallByClass
+    
     def on_export(self):
         """ Export the selected highlights to file(s)
         """
@@ -2094,7 +2089,7 @@ class Base(QMainWindow, Ui_Base):
         idx = self.sender().data()
         self.export(idx)
 
-    # noinspection PyCallByClass
+    
     def export(self, idx):
         """ Execute the selected `Export action`
 
@@ -2267,7 +2262,7 @@ class Base(QMainWindow, Ui_Base):
         """
         if not self.sel_high_view:
             return
-        # noinspection PyCallByClass
+        
         filename = QFileDialog.getSaveFileName(self, _("Export to file"), self.last_dir,
                                                "text file (*.txt);;html file (*.html);;"
                                                "csv file (*.csv);;markdown file (*.md)")
@@ -2421,12 +2416,10 @@ class Base(QMainWindow, Ui_Base):
                   "high_merge_warning": self.high_merge_warning,
                   }
         try:
-            if not PYTHON2:
-                # noinspection PyUnresolvedReferences
-                for k, v in config.items():
-                    if type(v) == bytes:
-                        # noinspection PyArgumentList
-                        config[k] = str(v, encoding="latin")
+            for k, v in config.items():
+                if isinstance(v, bytes):
+                    
+                    config[k] = str(v, encoding="latin")
             config_json = json.dumps(config, sort_keys=True, indent=4)
             with gzip.GzipFile(join(SETTINGS_DIR, "settings.json.gz"), "w+") as gz_file:
                 try:
@@ -2456,17 +2449,9 @@ class Base(QMainWindow, Ui_Base):
             value = app_config.get(key)
             if not value:
                 return
-            if PYTHON2:
-                try:
-                    # noinspection PyTypeChecker
-                    value = pickle.loads(str(value))
-                except UnicodeEncodeError:  # settings from Python 3.x
-                    return
-            else:
-                # noinspection PyUnresolvedReferences
-                value = value.encode("latin1")
-                # noinspection PyTypeChecker
-                value = pickle.loads(value, encoding="bytes")
+
+            value = value.encode("latin1")
+            value = pickle.loads(value, encoding="bytes")
         except pickle.UnpicklingError as err:
             print("While unPickling:", err)
             return
@@ -2608,7 +2593,7 @@ class Base(QMainWindow, Ui_Base):
         """
         if isfile(file_path):
             with open(file_path, "rb") as file_:
-                # noinspection PyDeprecation
+                
                 md5 = hashlib.md5()
                 sample = file_.read(1024)
                 if sample:
@@ -2651,7 +2636,7 @@ class Base(QMainWindow, Ui_Base):
                 webbrowser.open("https://www.paypal.com/cgi-bin/webscr?"
                                 "cmd=_s-xclick%20&hosted_button_id=MYV4WLTD6PEVG")
             return
-        # noinspection PyBroadException
+        
         try:
             version_new = self.about.get_online_version()
         # except URLError:  # can not connect
@@ -2697,7 +2682,7 @@ class Base(QMainWindow, Ui_Base):
         if self.sender().objectName() == "err":
             text = "\033[91m" + text + "\033[0m"
 
-        # noinspection PyBroadException
+        
         try:
             sys.__stdout__.write(text)
         except Exception:  # a problematic print that WE HAVE to ignore or we LOOP

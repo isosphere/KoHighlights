@@ -1,12 +1,11 @@
 # coding=utf-8
 from __future__ import absolute_import, division, print_function, unicode_literals
-from boot_config import *
+
 import re
 import webbrowser
 from functools import partial
 from distutils.version import LooseVersion
 from os.path import join, basename, splitext, isfile
-from pprint import pprint
 
 from PySide6.QtCore import QObject, Qt, Signal, QPoint, Slot, QSize, QEvent
 from PySide6.QtGui import QFont, QMovie, QIcon, QCursor, QAction, QActionGroup
@@ -14,8 +13,12 @@ from PySide6.QtWidgets import (QTableWidgetItem, QTableWidget, QMessageBox, QLin
                                 QApplication, QWidget, QDialog, QFileDialog,
                                 QMenu, QToolButton, QCheckBox)
 import requests
+
+
 from bs4 import BeautifulSoup
+
 from slppu import slppu as lua  # https://github.com/noembryo/slppu
+from boot_config import *
 
 def _(text):  # for future gettext support
     return text
@@ -30,7 +33,7 @@ def decode_data(path):
     with open(path, "r", encoding="utf8", newline="\n") as txt_file:
         header, data = txt_file.read().split("\n", 1)
         data = lua.decode(data[7:].replace("--", "—"))
-        if type(data) == dict:
+        if isinstance(data, dict):
             data["original_header"] = header
             return data
 
@@ -91,12 +94,12 @@ def get_book_text(title, authors, highlights, format_, line_break, space, text):
     elif format_ == ONE_TEXT:
         name = title
         if authors:
-            name = "{} - {}".format(authors, title)
+            name = f"{authors} - {title}"
         line = "-" * 80
         text += line + nl + name + nl + line + nl
         highlights = [
             i[3] + space + i[0] + line_break +
-            ("[{}]{}".format(i[4], nl) if i[4] else "") +
+            (f"[{i[4]}]{nl}" if i[4] else "") +
             i[2] + i[1] for i in highlights
         ]
         text += (nl * 2).join(highlights) + nl * 2
@@ -109,7 +112,7 @@ def get_book_text(title, authors, highlights, format_, line_break, space, text):
             # data = {k.encode("utf8"): v.encode("utf8") for k, v in data.items()}
             text += get_csv_row(data) + "\n"
     elif format_ == ONE_MD:
-        text += "\n---\n## {}  \n##### {}  \n---\n".format(title, authors)
+        text += f"\n---\n## {title}  \n##### {authors}  \n---\n"
         highs = []
         for i in highlights:
             comment = i[1].replace(nl, "  " + nl)
@@ -117,9 +120,9 @@ def get_book_text(title, authors, highlights, format_, line_break, space, text):
                 comment = "  " + comment
             chapter = i[4]
             if chapter:
-                chapter = "***{0}***{1}{1}".format(chapter, nl).replace(nl, "  " + nl)
+                chapter = f"***{chapter}***{nl}{nl}".replace(nl, "  " + nl)
             high = i[2].replace(nl, "  " + nl)
-            h = ("*" + i[3] + space + i[0] + line_break + chapter + high + comment + "  \n&nbsp;  \n")
+            h = "*" + i[3] + space + i[0] + line_break + chapter + high + comment + "  \n&nbsp;  \n"
             h = h.replace("-", "\\-")
             highs.append(h)
         text += nl.join(highs) + "\n---\n"
@@ -134,7 +137,7 @@ def save_file(title, authors, highlights, path, format_, line_break, space, sort
     encoding = "utf-8"
     name = title
     if authors:
-        name = "{} - {}".format(authors, title)
+        name = f"{authors} - {title}"
     if format_ == MANY_TEXT:
         ext = ".txt"
         line = "-" * 80
@@ -148,14 +151,14 @@ def save_file(title, authors, highlights, path, format_, line_break, space, sort
         encoding = "utf-8-sig"
     elif format_ == MANY_MD:
         ext = ".md"
-        text = "\n---\n## {}  \n##### {}  \n---\n".format(title, authors)
+        text = f"\n---\n## {title}  \n##### {authors}  \n---\n"
 
     filename = join(path, sanitize_filename(name))
     if _("NO TITLE FOUND") in title:  # don't overwrite unknown title files
         while isfile(filename + ext):
             match = re.match(r"(.+?) \[(\d+?)]$", filename)
             if match:
-                filename = "{} [{:02}]".format(match.group(1), int(match.group(2)) + 1)
+                filename = f"{match.group(1)} [{int(match.group(2)) + 1}]"
             else:
                 filename += " [01]"
     filename = filename + ext
@@ -168,9 +171,7 @@ def save_file(title, authors, highlights, path, format_, line_break, space, sort
                                       "highlight": high_text, "comment": high_comment,
                                       "chapter": chapter}
             elif format_ == MANY_TEXT:
-                text += (page_text + space + date_text + line_break +
-                         ("[{}]{}".format(chapter, nl) if chapter else "") +
-                         high_text + high_comment)
+                text += page_text + space + date_text + line_break + (f"[{chapter}]{nl}" if chapter else "") + high_text + high_comment
                 text += 2 * nl
             elif format_ == MANY_CSV:
                 data = {"title": title, "authors": authors, "page": page_text,
@@ -183,7 +184,7 @@ def save_file(title, authors, highlights, path, format_, line_break, space, sort
                 if high_comment:
                     high_comment = "  " + high_comment
                 if chapter:
-                    chapter = "***{0}***{1}{1}".format(chapter, nl).replace(nl, "  " + nl)
+                    chapter = f"***{chapter}***{nl}{nl}".replace(nl, "  " + nl)
                 text += ("*" + page_text + space + date_text + line_break +
                          chapter + high_text + high_comment +
                          "  \n&nbsp;  \n\n").replace("-", "\\-")
@@ -251,7 +252,7 @@ class DropTableWidget(QTableWidget):
 
     def __init__(self, parent=None):
         super(DropTableWidget, self).__init__(parent)
-        # noinspection PyArgumentList
+        
         self.app = QApplication.instance()
 
     def dragEnterEvent(self, event):
@@ -339,8 +340,8 @@ class XMessageBox(QMessageBox):
         :type widget: QWidget
         :param widget: The widget to be added
         """
-        # noinspection PyArgumentList
-        self.layout().addWidget(widget, 1, 1 if PYTHON2 else 2)
+        
+        self.layout().addWidget(widget, 1, 2)
 
 
 class XToolButton(QToolButton):
@@ -349,12 +350,6 @@ class XToolButton(QToolButton):
     def __init__(self, parent=None):
         super(XToolButton, self).__init__(parent)
         self.installEventFilter(self)
-
-    # def mousePressEvent(self, QMouseEvent):
-    #     if QMouseEvent.button() == Qt.RightButton:
-    #         # do what you want here
-    #         print("Right Button Clicked")
-    #         QMouseEvent.accept()
 
     def eventFilter(self, obj, event):
         if obj.objectName() == "db_btn":
@@ -375,7 +370,7 @@ class LogStream(QObject):
 
     # def __init__(self):
     #     super(LogStream, self).__init__()
-    #     # noinspection PyArgumentList
+    #     
     #     self.base = QtGui.QApplication.instance().base
 
     def write(self, text):
@@ -396,7 +391,7 @@ class Scanner(QObject):
 
     def start_scan(self):
         try:
-            for dir_path, dirs, files in os.walk(self.path):
+            for dir_path, _dirs, files in os.walk(self.path):
                 if dir_path.lower().endswith(".sdr"):  # a book's metadata folder
                     if dir_path.lower().endswith("evernote.sdr"):
                         continue
@@ -404,8 +399,7 @@ class Scanner(QObject):
                         if splitext(file_)[1].lower() == ".lua":
                             self.found.emit(join(dir_path, file_))
                 # older metadata storage or android history folder
-                elif (dir_path.lower().endswith(join("koreader", "history"))
-                      or basename(dir_path).lower() == "history"):
+                elif (dir_path.lower().endswith(join("koreader", "history")) or basename(dir_path).lower() == "history"):
                     for file_ in files:
                         if splitext(file_)[1].lower() == ".lua":
                             self.found.emit(join(dir_path, file_))
@@ -448,7 +442,7 @@ class HighlightScanner(QObject):
 
     def __init__(self):
         super(HighlightScanner, self).__init__()
-        # noinspection PyArgumentList
+        
         self.base = QApplication.instance().base
 
     def process(self):
@@ -480,7 +474,6 @@ from gui.edit import Ui_TextDialog
 from gui.filter import Ui_Filter
 
 class ToolBar(QWidget, Ui_ToolBar):
-
     def __init__(self, parent=None):
         super(ToolBar, self).__init__(parent)
         self.setupUi(self)
@@ -542,7 +535,7 @@ class ToolBar(QWidget, Ui_ToolBar):
         for btn in [self.loaded_btn, self.db_btn]:
             # btn.setMinimumWidth(size + 10)
             btn.setIconSize(half_size)
-        # noinspection PyArgumentList
+        
         QApplication.processEvents()
 
     @Slot()
@@ -620,8 +613,8 @@ class ToolBar(QWidget, Ui_ToolBar):
         """ The `Clear List` button is pressed
         """
         if self.base.current_view == HIGHLIGHTS_VIEW:
-            (self.base.high_table.model()  # clear Books view too
-             .removeRows(0, self.base.high_table.rowCount()))
+            # clear Books view too
+            self.base.high_table.model().removeRows(0, self.base.high_table.rowCount())
         self.base.loaded_paths.clear()
         self.base.reload_highlights = True
         self.base.file_table.model().removeRows(0, self.base.file_table.rowCount())
@@ -631,7 +624,7 @@ class ToolBar(QWidget, Ui_ToolBar):
     def on_db_btn_right_clicked(self):
         """ The context menu of the "Archived" button is pressed
         """
-        # noinspection PyArgumentList
+        
         self.db_menu.exec(QCursor.pos())
 
     def create_db_menu(self):
@@ -662,8 +655,7 @@ class ToolBar(QWidget, Ui_ToolBar):
         if self.books_view_btn.isChecked():  # Books view
             # self.add_btn_menu(self.base.toolbar.export_btn)
             if self.base.sel_idx:
-                item = self.base.file_table.item(self.base.sel_idx.row(),
-                                                 self.base.sel_idx.column())
+                item = self.base.file_table.item(self.base.sel_idx.row(), self.base.sel_idx.column())
                 self.base.on_file_table_itemClicked(item, reset=False)
         else:  # Highlights view
             for btn in [self.base.toolbar.export_btn, self.base.toolbar.delete_btn]:
@@ -671,8 +663,7 @@ class ToolBar(QWidget, Ui_ToolBar):
             if self.base.reload_highlights and not new:
                 self.base.scan_highlights_thread()
 
-        self.base.current_view = (BOOKS_VIEW if self.books_view_btn.isChecked()
-                                  else HIGHLIGHTS_VIEW)
+        self.base.current_view = (BOOKS_VIEW if self.books_view_btn.isChecked() else HIGHLIGHTS_VIEW)
         self.base.views.setCurrentIndex(self.base.current_view)
         self.setup_buttons()
         self.activate_buttons()
@@ -949,7 +940,7 @@ class About(QDialog, Ui_About):
     def on_about_qt_btn_clicked(self):
         """ The `About Qt` button is pressed
         """
-        # noinspection PyCallByClass
+        
         QMessageBox.aboutQt(self, title=_("About Qt"))
 
     @Slot()
@@ -1012,26 +1003,26 @@ class About(QDialog, Ui_About):
         paypal = ":/stuff/paypal.png"
         info = _("""<body style="font-size:10pt; font-weight:400; font-style:normal">
         <center>
-          <table width="100%" border="0">
-            <tr>
-                <p align="center"><img src="{0}" width="256" height ="212"></p>
-                <p align="center"><b>{3}</b> is a utility for viewing
-                    <a href="https://github.com/koreader/koreader">Koreader</a>'s
-                    highlights<br/>and/or export them to simple text</p>
-                <p align="center">Version {1}</p>
-                <p align="center">Visit
-                    <a href="https://github.com/noEmbryo/KoHighlights">
-                    {3} page at GitHub</a>, or</p>
-                <p align="center"><a href="http://www.noembryo.com/apps.php?app_index">
-                   noEmbryo's page</a> with more Apps and stuff...</p>
-                <p align="center">Use it and if you like it, consider to
-                <p align="center"><a href="https://www.paypal.com/cgi-bin/webscr?
-                    cmd=_s-xclick &hosted_button_id=RBYLVRYG9RU2S">
-                <img src="{2}" alt="PayPal Button"
-                    width="142" height="27" border="0"></a></p>
-                <p align="center">&nbsp;</p></td>
-            </tr>
-          </table>
+            <table width="100%" border="0">
+                <tr>
+                    <p align="center"><img src="{0}" width="256" height ="212"></p>
+                    <p align="center"><b>{3}</b> is a utility for viewing
+                        <a href="https://github.com/koreader/koreader">Koreader</a>'s
+                        highlights<br/>and/or export them to simple text</p>
+                    <p align="center">Version {1}</p>
+                    <p align="center">Visit
+                        <a href="https://github.com/noEmbryo/KoHighlights">
+                        {3} page at GitHub</a>, or</p>
+                    <p align="center"><a href="http://www.noembryo.com/apps.php?app_index">
+                    noEmbryo's page</a> with more Apps and stuff...</p>
+                    <p align="center">Use it and if you like it, consider to
+                    <p align="center"><a href="https://www.paypal.com/cgi-bin/webscr?
+                        cmd=_s-xclick &hosted_button_id=RBYLVRYG9RU2S">
+                    <img src="{2}" alt="PayPal Button"
+                        width="142" height="27" border="0"></a></p>
+                    <p align="center">&nbsp;</p></td>
+                </tr>
+            </table>
         </center>
         </body>""").format(splash, self.base.version, paypal, APP_NAME)
         self.text_lbl.setText(info)
@@ -1057,7 +1048,6 @@ class AutoInfo(QDialog, Ui_AutoInfo):
 
 
 class TextDialog(QDialog, Ui_TextDialog):
-
     def __init__(self, parent=None):
         super(TextDialog, self).__init__(parent)
         self.setupUi(self)
@@ -1069,11 +1059,11 @@ class TextDialog(QDialog, Ui_TextDialog):
     def on_ok_btn_clicked(self):
         """ The OK button is pressed
         """
-        self.on_ok()
+        if self.on_ok is not None:
+            return self.on_ok()
 
 
 class Status(QWidget, Ui_Status):
-
     def __init__(self, parent=None):
         super(Status, self).__init__(parent)
         self.setupUi(self)
@@ -1084,10 +1074,9 @@ class Status(QWidget, Ui_Status):
         self.anim_lbl.hide()
 
         self.show_menu = QMenu(self)
-        for i in [self.act_page, self.act_date, self.act_text, self.act_chapter,
-                  self.act_comment]:
+        for i in [self.act_page, self.act_date, self.act_text, self.act_chapter, self.act_comment]:
             self.show_menu.addAction(i)
-            # noinspection PyUnresolvedReferences
+            
             i.triggered.connect(self.on_show_items)
             i.setChecked(True)
 

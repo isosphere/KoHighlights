@@ -14,14 +14,9 @@ APP_DIR = dirname(os.path.abspath(sys.argv[0]))
 os.chdir(APP_DIR)  # Set the current working directory to the app's directory
 
 PORTABLE = False
-PYTHON2 = True if sys.version_info < (3, 0) else False
-if PYTHON2:
-    from io import open
-    from codecs import open as c_open
-else:
-    # noinspection PyShadowingBuiltins
-    unicode, basestring = str, str
-    c_open = open
+
+unicode, basestring = str, str
+c_open = open
 
 if sys.platform == "win32":  # Windows
     import win32api
@@ -43,17 +38,19 @@ if sys.platform == "win32":  # Windows
             win32api.CloseHandle(self.mutex) if self.mutex else None
 
     my_app = SingleInstance(APP_NAME)
+
     if my_app.already_running():  # another instance is running
         sys.exit(0)
     try:
-        # noinspection PyUnresolvedReferences
-        portable_arg = sys.argv[1] if not PYTHON2 else sys.argv[1].decode("mbcs")
+        portable_arg = sys.argv[1]
         PORTABLE = portable_arg == "-p"
     except IndexError:  # no arguments in the call
         pass
+
     PROFILE_DIR = join(os.environ[str("APPDATA")], APP_NAME)
     PORTABLE_DIR = join(APP_DIR, "portable_settings")
     SETTINGS_DIR = PORTABLE_DIR if PORTABLE else PROFILE_DIR
+
 elif sys.platform == "darwin":  # MacOS 2check: needs to be tested
     import socket
     app_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -72,8 +69,9 @@ else:  # Linux+
     except socket.error:  # port in use - another instance is running
         sys.exit(0)
     SETTINGS_DIR = join(expanduser("~"), ".config", APP_NAME)
-os.makedirs(SETTINGS_DIR) if not isdir(SETTINGS_DIR) else None
 
+if not isdir(SETTINGS_DIR)
+    os.makedirs(SETTINGS_DIR)
 
 def except_hook(class_type, value, trace_back):
     """ Print the error to a log file
@@ -87,13 +85,11 @@ def except_hook(class_type, value, trace_back):
 
 sys.excepthook = except_hook
 
-
-import PySide6
 FIRST_RUN = False
-# noinspection PyBroadException
+
 try:
     with gzip.GzipFile(join(SETTINGS_DIR, "settings.json.gz")) as settings:
-        j_text = settings.read() if PYTHON2 else settings.read().decode("utf8")
+        j_text = settings.read().decode("utf8")
         app_config = json.loads(j_text)
 except Exception:  # IOError on first run or everything else
     app_config = {}

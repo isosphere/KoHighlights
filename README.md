@@ -41,6 +41,12 @@ This repository is a fork of the original project at [KOHighlights](https://gith
 ### Prerequisites
 * Progress sync plugin must be enabled in KOReader
 
+## Dependencies
+This project uses [poetry](https://python-poetry.org/) for Python dependency management. See the [pyproject.toml](pyproject.toml) for detailed dependency information.
+
+### Linux
+On a Debian-compatible system, these packages are sufficient: `libxcb-cursor0`, `libxcb-xkb1`, `libxcb-icccm4`, `libxcb-keysyms1`, `libxkbcommon-x11-0`.
+
 ### Portable
 In Windows, KOHighlights can run in Portable mode using a `portable_settings` directory to store its settings, that is located inside the installation directory of the app.  
 Because of this, it is advised to not install the app inside the `Program Files` folder if you indent to use it as portable.  
@@ -48,9 +54,6 @@ There are two ways to start the app in Portable mode:
 * Run the `KoHighlights Portable.exe` that is located next to the `KoHighlights.exe`.  
 * Run `KoHighlights.exe` with a `-p` argument.  
 E.g. create a shortcut for the `KoHighlights.exe` and add a space and a `-p` argument at the end of the target filename.
-
-## Dependencies
-This project uses [poetry](https://python-poetry.org/) for dependency management. See the [pyproject.toml](pyproject.toml) for detailed dependency information.
 
 ## Extra
 KOHighlights includes SLPPU (a converter between python and lua objects). 

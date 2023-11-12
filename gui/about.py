@@ -45,7 +45,7 @@ class Ui_About(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 454, 485))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 454, 481))
         self.scrollAreaWidgetContents_2.setStyleSheet(u"background-color:transparent;")
         self.verticalLayout_6 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")

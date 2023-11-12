@@ -26,7 +26,7 @@ class Ui_ToolBar(object):
     def setupUi(self, ToolBar):
         if not ToolBar.objectName():
             ToolBar.setObjectName(u"ToolBar")
-        ToolBar.resize(967, 73)
+        ToolBar.resize(976, 76)
         ToolBar.setContextMenuPolicy(Qt.PreventContextMenu)
         ToolBar.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         self.verticalLayout_2 = QVBoxLayout(ToolBar)

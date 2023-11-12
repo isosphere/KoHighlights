@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>967</width>
-    <height>73</height>
+    <width>976</width>
+    <height>76</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -41,7 +41,7 @@
       <enum>Qt::CustomContextMenu</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="margin">
+      <property name="margin" stdset="0">
        <number>0</number>
       </property>
       <item>
@@ -56,7 +56,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset>
           <normaloff>../KataLib/:/exec.png</normaloff>../KataLib/:/exec.png</iconset>
         </property>
         <property name="iconSize">
@@ -98,7 +98,7 @@ Can also be the eReader's root directory (Ctrl+L)</string>
          <string>Scan Directory</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset resource="../images.qrc">
           <normaloff>:/folder_reader.png</normaloff>:/folder_reader.png</iconset>
         </property>
         <property name="iconSize">
@@ -139,7 +139,7 @@ Can also be the eReader's root directory (Ctrl+L)</string>
          <string>Export</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset resource="../images.qrc">
           <normaloff>:/file_save.png</normaloff>:/file_save.png</iconset>
         </property>
         <property name="iconSize">
@@ -180,7 +180,7 @@ Can also be the eReader's root directory (Ctrl+L)</string>
          <string>View</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset resource="../images.qrc">
           <normaloff>:/files_view.png</normaloff>:/files_view.png</iconset>
         </property>
         <property name="iconSize">
@@ -215,7 +215,7 @@ Can also be the eReader's root directory (Ctrl+L)</string>
          <string>Filter</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset resource="../images.qrc">
           <normaloff>:/filter.png</normaloff>:/filter.png</iconset>
         </property>
         <property name="iconSize">
@@ -267,7 +267,7 @@ Activated only if two entries of the same book are selected.</string>
          <string>Merge/Sync</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset resource="../images.qrc">
           <normaloff>:/files_merge.png</normaloff>:/files_merge.png</iconset>
         </property>
         <property name="iconSize">
@@ -311,7 +311,7 @@ Activated only if two entries of the same book are selected.</string>
          <string>Delete</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset resource="../images.qrc">
           <normaloff>:/files_delete.png</normaloff>:/files_delete.png</iconset>
         </property>
         <property name="iconSize">
@@ -355,7 +355,7 @@ Activated only if two entries of the same book are selected.</string>
          <string>Clear List</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset resource="../images.qrc">
           <normaloff>:/trash.png</normaloff>:/trash.png</iconset>
         </property>
         <property name="iconSize">
@@ -388,7 +388,7 @@ Activated only if two entries of the same book are selected.</string>
       <item>
        <widget class="QGroupBox" name="view_grp">
         <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <property name="margin">
+         <property name="margin" stdset="0">
           <number>0</number>
          </property>
          <item>
@@ -409,7 +409,7 @@ Activated only if two entries of the same book are selected.</string>
             <string>Books</string>
            </property>
            <property name="icon">
-            <iconset resource="images.qrc">
+            <iconset resource="../images.qrc">
              <normaloff>:/view_books.png</normaloff>:/view_books.png</iconset>
            </property>
            <property name="iconSize">
@@ -453,7 +453,7 @@ Activated only if two entries of the same book are selected.</string>
             <string>Highlights</string>
            </property>
            <property name="icon">
-            <iconset resource="images.qrc">
+            <iconset resource="../images.qrc">
              <normaloff>:/view-highlights.png</normaloff>:/view-highlights.png</iconset>
            </property>
            <property name="iconSize">
@@ -491,7 +491,7 @@ Activated only if two entries of the same book are selected.</string>
          <property name="spacing">
           <number>0</number>
          </property>
-         <property name="margin">
+         <property name="margin" stdset="0">
           <number>0</number>
          </property>
          <item>
@@ -518,7 +518,7 @@ Activated only if two entries of the same book are selected.</string>
             <string>Loaded</string>
            </property>
            <property name="icon">
-            <iconset resource="images.qrc">
+            <iconset resource="../images.qrc">
              <normaloff>:/books.png</normaloff>:/books.png</iconset>
            </property>
            <property name="iconSize">
@@ -569,7 +569,7 @@ Activated only if two entries of the same book are selected.</string>
             <string>Archived</string>
            </property>
            <property name="icon">
-            <iconset resource="images.qrc">
+            <iconset resource="../images.qrc">
              <normaloff>:/db.png</normaloff>:/db.png</iconset>
            </property>
            <property name="iconSize">
@@ -622,7 +622,7 @@ Activated only if two entries of the same book are selected.</string>
          <string>About</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset resource="../images.qrc">
           <normaloff>:/logo64.png</normaloff>:/logo64.png</iconset>
         </property>
         <property name="iconSize">
@@ -652,7 +652,7 @@ Activated only if two entries of the same book are selected.</string>
   </customwidget>
  </customwidgets>
  <resources>
- <include location="images.qrc"/>
+  <include location="../images.qrc"/>
  </resources>
  <connections/>
 </ui>

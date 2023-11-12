@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>215</width>
+    <width>223</width>
     <height>66</height>
    </rect>
   </property>
@@ -14,7 +14,7 @@
    <locale language="English" country="UnitedStates"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="margin" stdset="0">
     <number>4</number>
    </property>
    <item>
@@ -26,7 +26,7 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
-      <property name="margin">
+      <property name="margin" stdset="0">
        <number>0</number>
       </property>
       <item>
@@ -63,7 +63,7 @@
          <string>Filter</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset resource="../images.qrc">
           <normaloff>:/filter.png</normaloff>:/filter.png</iconset>
         </property>
        </widget>
@@ -80,7 +80,7 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="margin">
+      <property name="margin" stdset="0">
        <number>0</number>
       </property>
       <item>
@@ -151,7 +151,7 @@
          <string>Clear</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset resource="../images.qrc">
           <normaloff>:/trash.png</normaloff>:/trash.png</iconset>
         </property>
        </widget>
@@ -162,7 +162,7 @@
   </layout>
  </widget>
  <resources>
- <include location="images.qrc"/>
+  <include location="../images.qrc"/>
  </resources>
  <connections/>
 </ui>

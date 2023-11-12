@@ -24,7 +24,7 @@ class Ui_Filter(object):
     def setupUi(self, Filter):
         if not Filter.objectName():
             Filter.setObjectName(u"Filter")
-        Filter.resize(215, 66)
+        Filter.resize(223, 66)
         Filter.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         self.verticalLayout = QVBoxLayout(Filter)
         self.verticalLayout.setContentsMargins(4, 4, 4, 4)

@@ -33,10 +33,10 @@ if not isdir(SETTINGS_DIR):
 def except_hook(class_type, value, trace_back):
     """ Print the error to a log file
     """
-    name = join(SETTINGS_DIR, "error_log_{}.txt".format(time.strftime(str("%Y-%m-%d"))))
+    name = join(SETTINGS_DIR, f"error_log_{time.strftime('%Y-%m-%d')}.txt")
     with open(name, "a", encoding="utf8") as log:
-        log.write("\nCrash@{}\n".format(time.strftime(str("%Y-%m-%d %H:%M:%S"))))
-    traceback.print_exception(class_type, value, trace_back, file=open(name, "a", encoding="utf8"))
+        log.write(f"\nCrash@{time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+        traceback.print_exception(class_type, value, trace_back, file = log)
     sys.__excepthook__(class_type, value, trace_back)
 
 
@@ -44,14 +44,13 @@ sys.excepthook = except_hook
 
 FIRST_RUN = False
 
-try:
+if os.path.isfile(join(SETTINGS_DIR, "settings.json.gz")):
     with gzip.GzipFile(join(SETTINGS_DIR, "settings.json.gz")) as settings:
         j_text = settings.read().decode("utf8")
         app_config = json.loads(j_text)
-except Exception:  # IOError on first run or everything else
+else:
     app_config = {}
     FIRST_RUN = True
-
 
 BOOKS_VIEW, HIGHLIGHTS_VIEW = range(2)  # app views
 CHANGE_DB, NEW_DB, RELOAD_DB = range(3)  # db change mode

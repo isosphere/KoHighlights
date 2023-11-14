@@ -2714,13 +2714,12 @@ class KOHighlights(QApplication):
         if len(argv) > 1 and argv[1] == "-p":
             del argv[1]
         sys.argv = argv
-        self.parser = argparse.ArgumentParser(prog=APP_NAME,
-                                              description=_("{} v{} - A KOReader's "
-                                                            "highlights converter")
-                                              .format(APP_NAME, __version__),
-                                              epilog=_("Thanks for using %s!") % APP_NAME)
-        self.parser.add_argument("-v", "--version", action="version",
-                                 version="%(prog)s v{}".format(__version__))
+        self.parser = argparse.ArgumentParser(
+            prog=APP_NAME,
+            description=_(f"{APP_NAME} v{__version__} - A KOReader's highlights converter"),
+            epilog=_(f"Thanks for using {APP_NAME}!")
+        )
+        self.parser.add_argument("-v", "--version", action="version", version=f"%(prog)s v{__version__}")
 
         self.base = Base()
         if getattr(sys, "frozen", False):  # the app is compiled

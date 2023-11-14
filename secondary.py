@@ -78,7 +78,7 @@ def get_book_text(title, authors, highlights, format_, line_break, space, text):
     """ Create the book's contents to be added to a single merged exported file
     """
     nl = os.linesep
-    if format_ == ONE_HTML:
+    if format_ == EXPORT_HTML_COMBINED:
         text += BOOK_BLOCK % {"title": title, "authors": authors}
         for high in highlights:
             date_text, high_comment, high_text, page_text, chapter = high
@@ -88,7 +88,7 @@ def get_book_text(title, authors, highlights, format_, line_break, space, text):
                 "chapter": chapter
             }
         text += "</div>\n"
-    elif format_ == ONE_TEXT:
+    elif format_ == EXPORT_TEXT_COMBINED:
         name = title
         if authors:
             name = f"{authors} - {title}"
@@ -100,7 +100,7 @@ def get_book_text(title, authors, highlights, format_, line_break, space, text):
             i[2] + i[1] for i in highlights
         ]
         text += (nl * 2).join(highlights) + nl * 2
-    elif format_ == ONE_CSV:
+    elif format_ == EXPORT_CSV_COMBINED:
         for high in highlights:
             date_text, high_comment, high_text, page_text, chapter = high
             data = {"title": title, "authors": authors, "page": page_text,
@@ -108,7 +108,7 @@ def get_book_text(title, authors, highlights, format_, line_break, space, text):
                     "chapter": chapter}
             # data = {k.encode("utf8"): v.encode("utf8") for k, v in data.items()}
             text += get_csv_row(data) + "\n"
-    elif format_ == ONE_MD:
+    elif format_ == EXPORT_MD_COMBINED:
         text += f"\n---\n## {title}  \n##### {authors}  \n---\n"
         highs = []
         for i in highlights:
@@ -135,18 +135,18 @@ def save_file(title, authors, highlights, path, format_, line_break, space, sort
     name = title
     if authors:
         name = f"{authors} - {title}"
-    if format_ == MANY_TEXT:
+    if format_ == EXPORT_TEXT_MANY:
         ext = ".txt"
         line = "-" * 80
         text = line + nl + name + nl + line + (2 * nl)
-    elif format_ == MANY_HTML:
+    elif format_ == EXPORT_HTML_MANY:
         ext = ".html"
         text = HTML_HEAD + BOOK_BLOCK % {"title": title, "authors": authors}
-    elif format_ == MANY_CSV:
+    elif format_ == EXPORT_CSV_MANY:
         ext = ".csv"
         text = CSV_HEAD
         encoding = "utf-8-sig"
-    elif format_ == MANY_MD:
+    elif format_ == EXPORT_MD_MANY:
         ext = ".md"
         text = f"\n---\n## {title}  \n##### {authors}  \n---\n"
 
@@ -163,19 +163,19 @@ def save_file(title, authors, highlights, path, format_, line_break, space, sort
     with open(filename, "w+", encoding=encoding, newline="") as text_file:
         for highlight in sorted(highlights, key=sort_by):
             date_text, high_comment, high_text, page_text, chapter = highlight
-            if format_ == MANY_HTML:
+            if format_ == EXPORT_HTML_MANY:
                 text += HIGH_BLOCK % {"page": page_text, "date": date_text,
                                       "highlight": high_text, "comment": high_comment,
                                       "chapter": chapter}
-            elif format_ == MANY_TEXT:
+            elif format_ == EXPORT_TEXT_MANY:
                 text += page_text + space + date_text + line_break + (f"[{chapter}]{nl}" if chapter else "") + high_text + high_comment
                 text += 2 * nl
-            elif format_ == MANY_CSV:
+            elif format_ == EXPORT_CSV_MANY:
                 data = {"title": title, "authors": authors, "page": page_text,
                         "date": date_text, "text": high_text, "comment": high_comment,
                         "chapter": chapter}
                 text += get_csv_row(data) + "\n"
-            elif format_ == MANY_MD:
+            elif format_ == EXPORT_MD_MANY:
                 high_text = high_text.replace(nl, "  " + nl)
                 high_comment = high_comment.replace(nl, "  " + nl)
                 if high_comment:
@@ -185,7 +185,7 @@ def save_file(title, authors, highlights, path, format_, line_break, space, sort
                 text += ("*" + page_text + space + date_text + line_break +
                          chapter + high_text + high_comment +
                          "  \n&nbsp;  \n\n").replace("-", "\\-")
-        if format_ == MANY_HTML:
+        if format_ == EXPORT_HTML_MANY:
             text += "\n</div>\n</body>\n</html>"
 
         text_file.write(text)

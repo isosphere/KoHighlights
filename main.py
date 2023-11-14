@@ -2044,14 +2044,15 @@ class Base(QMainWindow, Ui_Base):
         """ Creates the `Export Files` button menu
         """
         menu = QMenu(self)
-        for idx, item in enumerate([(_("To individual text files"), MANY_TEXT),
-                                    (_("Combined to one text file"), ONE_TEXT),
-                                    (_("To individual html files"), MANY_HTML),
-                                    (_("Combined to one html file"), ONE_HTML),
-                                    (_("To individual csv files"), MANY_CSV),
-                                    (_("Combined to one csv file"), ONE_CSV),
-                                    (_("To individual markdown files"), MANY_MD),
-                                    (_("Combined to one markdown file"), ONE_MD)]):
+        for idx, item in enumerate([(_("To individual text files"), EXPORT_TEXT_MANY),
+                                    (_("Combined to one text file"), EXPORT_TEXT_COMBINED),
+                                    (_("To individual html files"), EXPORT_HTML_MANY),
+                                    (_("Combined to one html file"), EXPORT_HTML_COMBINED),
+                                    (_("To individual csv files"), EXPORT_CSV_MANY),
+                                    (_("Combined to one csv file"), EXPORT_CSV_COMBINED),
+                                    (_("To individual markdown files"), EXPORT_MD_MANY),
+                                    (_("Combined to one markdown file"), EXPORT_MD_COMBINED),
+                                    (_("Template Export"), EXPORT_TEMPLATE)]):
             action = QAction(item[0], menu)
             action.triggered.connect(self.export_actions)
             action.setData(item[1])
@@ -2092,14 +2093,14 @@ class Base(QMainWindow, Ui_Base):
         saved = 0
         space = (" " if self.status.act_page.isChecked() and
                  self.status.act_date.isChecked() else "")
-        if idx not in [MANY_MD, ONE_MD]:
+        if idx not in [EXPORT_MD_MANY, EXPORT_MD_COMBINED]:
             line_break = (":" + os.linesep if self.status.act_page.isChecked() or
                           self.status.act_date.isChecked() else "")
         else:
             line_break = (":*  " + os.linesep if self.status.act_page.isChecked() or
                           self.status.act_date.isChecked() else " ")
         # Save from file_table to different files
-        if idx in [MANY_TEXT, MANY_HTML, MANY_CSV, MANY_MD]:
+        if idx in [EXPORT_TEXT_MANY, EXPORT_HTML_MANY, EXPORT_CSV_MANY, EXPORT_MD_MANY]:
             text = _("Select destination folder for the exported file(s)")
             dir_path = QFileDialog.getExistingDirectory(self, text, self.last_dir,
                                                         QFileDialog.ShowDirsOnly)
@@ -2108,14 +2109,14 @@ class Base(QMainWindow, Ui_Base):
             self.last_dir = dir_path
             saved = self.save_multi_files(dir_path, idx, line_break, space)
         # Save from file_table, combine to one file
-        elif idx in [ONE_TEXT, ONE_HTML, ONE_CSV, ONE_MD]:
-            if idx == ONE_TEXT:
+        elif idx in [EXPORT_TEXT_COMBINED, EXPORT_HTML_COMBINED, EXPORT_CSV_COMBINED, EXPORT_MD_COMBINED]:
+            if idx == EXPORT_TEXT_COMBINED:
                 ext = "txt"
-            elif idx == ONE_HTML:
+            elif idx == EXPORT_HTML_COMBINED:
                 ext = "html"
-            elif idx == ONE_CSV:
+            elif idx == EXPORT_CSV_COMBINED:
                 ext = "csv"
-            elif idx == ONE_MD:
+            elif idx == EXPORT_MD_COMBINED:
                 ext = "md"
             else:
                 return
@@ -2176,9 +2177,9 @@ class Base(QMainWindow, Ui_Base):
         """
         self.status.animation(True)
         saved = 0
-        text = (HTML_HEAD if format_ == ONE_HTML
-                else CSV_HEAD if format_ == ONE_CSV else "")
-        encoding = "utf-8-sig" if ONE_CSV else "utf-8"
+        text = (HTML_HEAD if format_ == EXPORT_HTML_COMBINED
+                else CSV_HEAD if format_ == EXPORT_CSV_COMBINED else "")
+        encoding = "utf-8-sig" if EXPORT_CSV_COMBINED else "utf-8"
 
         for idx in sorted(self.sel_indexes):
             authors, title, highlights = self.get_item_data(idx, format_)
@@ -2188,7 +2189,7 @@ class Base(QMainWindow, Ui_Base):
             text = get_book_text(title, authors, highlights, format_,
                                  line_break, space, text)
             saved += 1
-        if format_ == ONE_HTML:
+        if format_ == EXPORT_HTML_COMBINED:
             text += "\n</body>\n</html>"
 
         with open(filename, "w+", encoding=encoding, newline="") as text_file:
@@ -2229,7 +2230,7 @@ class Base(QMainWindow, Ui_Base):
         :param format_ The output format idx
         """
         highlight = self.get_highlight_info(data, page, page_id)
-        linesep = "<br/>" if format_ in [ONE_HTML, MANY_HTML] else os.linesep
+        linesep = "<br/>" if format_ in [EXPORT_HTML_COMBINED, EXPORT_HTML_MANY] else os.linesep
         comment = highlight["comment"].replace("\n", linesep)
         chapter = (highlight["chapter"].replace("\n", linesep)
                    if self.status.act_chapter.isChecked() else "")
@@ -2238,7 +2239,7 @@ class Base(QMainWindow, Ui_Base):
         date = highlight["date"]
         date = date if self.date_format == DATE_FORMAT else self.get_date_text(date)
         line_break2 = (os.linesep if self.status.act_text.isChecked() and comment else "")
-        if format_ in [ONE_CSV, MANY_CSV]:
+        if format_ in [EXPORT_CSV_COMBINED, EXPORT_CSV_MANY]:
             page_text = str(page) if self.status.act_page.isChecked() else ""
             date_text = date if self.status.act_date.isChecked() else ""
             high_comment = (comment if self.status.act_comment.isChecked()
@@ -2841,13 +2842,13 @@ class KOHighlights(QApplication):
         """
         saved = 0
         if args.html:
-            format_ = MANY_HTML
+            format_ = EXPORT_HTML_MANY
         elif args.csv:
-            format_ = MANY_CSV
+            format_ = EXPORT_CSV_MANY
         elif args.markdown:
-            format_ = MANY_MD
+            format_ = EXPORT_MD_MANY
         else:
-            format_ = MANY_TEXT
+            format_ = EXPORT_TEXT_MANY
         sort_by = self.cli_sort
         path = abspath(args.output)
         for file_ in files:
@@ -2877,19 +2878,19 @@ class KOHighlights(QApplication):
         text = ""
         encoding = "utf-8"
         if args.html:
-            format_ = ONE_HTML
+            format_ = EXPORT_HTML_COMBINED
             text = HTML_HEAD
             new_ext = ".html"
         elif args.csv:
-            format_ = ONE_CSV
+            format_ = EXPORT_CSV_COMBINED
             text = CSV_HEAD
             new_ext = ".csv"
             encoding = "utf-8-sig"
         elif args.markdown:
-            format_ = ONE_MD
+            format_ = EXPORT_MD_COMBINED
             new_ext = ".md"
         else:
-            format_ = ONE_TEXT
+            format_ = EXPORT_TEXT_COMBINED
             new_ext = ".txt"
 
         for file_ in files:

@@ -1,3 +1,5 @@
+Archived in favour of https://github.com/isosphere/logseq-koreader-sync - sorry Obsidian users, you'll have to write your own!
+
 ## General
 ![KOHighlights logo](resources/icons/logo.png)
 
